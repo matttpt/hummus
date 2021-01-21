@@ -1,0 +1,232 @@
+/* FONTS */
+
+@import url('https://fonts.googleapis.com/css2?family=Open Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* STRUCTURE/ELEMENTS */
+
+html {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.25em;
+}
+
+header {
+  border-bottom: 1px dotted #333;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+}
+
+nav li a {
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+nav li:last-child a {
+  padding-right: 0;
+}
+
+body {
+  line-height: 1.4;
+  color: #333;
+}
+
+div.wrapper {
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+div.wrapper {
+  max-width: 740px;
+}
+
+div.wrapper::after {
+  content: '';
+  clear: both;
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  float: left;
+  font-weight: bold;
+  margin-right: 0.3rem;
+}
+
+h3::after {
+  content: '.'
+}
+
+a {
+  transition: text-shadow 0.5s ease;
+}
+
+a:hover {
+  text-shadow: 0 0 0.3rem #bbb;
+}
+
+em, i {
+  font-style: italic;
+}
+
+em > em {
+    font-style: normal;
+}
+
+strong, b {
+  font-weight: bold;
+}
+
+sup {
+  font-size: 0.8em;
+  position: relative;
+  top: -0.3em;
+}
+
+table caption {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+tr:nth-child(even) {
+  background: #f0f0f0;
+}
+
+tr:nth-child(odd) {
+  background: #e0e0e0
+}
+
+th {
+  background: #333;
+  color: white;
+  font-weight: bold;
+  text-align: left;
+}
+
+th, td {
+  padding: 0.5rem;
+}
+
+code, pre {
+  font-family: monospace;
+  background: #f0f0f0;
+}
+
+code {
+  padding: 3px;
+}
+
+pre code {
+  padding: 0;
+}
+
+pre {
+  -moz-tab-size: 4;
+  tab-size: 4;
+  padding: 1rem;
+}
+
+blockquote {
+  padding: 0 1.7rem;
+  border-left: 0.3rem solid #333;
+}
+
+blockquote footer {
+  margin: 0.5rem 0 0 0;
+  color: #333;
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+button, input[type=submit], a.button {
+  display: inline-block;
+  color: white;
+  background: #333;
+  border: none;
+  font-family: 'Open Sans', sans-serif;
+  color #white;
+  font-size: 1rem;
+  padding: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.25s ease;
+}
+
+button:hover, input[type=submit]:hover, a.button:hover {
+  background: #555;
+}
+
+a.button:hover {
+  text-shadow: none;
+}
+
+button.secondary, a.button.secondary {
+  color: inherit;
+  background: inherit;
+  border: 1px solid #333;
+}
+
+button.secondary:hover, a.button.secondary:hover {
+  background: #eee;
+}
+
+header h1 {
+  font-size: 2rem;
+}
+
+header h1 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+main p, main ul, main img, main table, main pre, main blockquote,
+main .good, main .warning, main .error {
+  margin-bottom: 1rem;
+}
+
+main a {
+  color: inherit;
+}
+
+main ul {
+  list-style: outside square;
+  margin-left: 2rem;
+}
+
+main img, main table {
+  width: 100%;
+}
+
+.good, .warning, .error {
+  padding: 1rem;
+  color: white;
+}
+
+.good {
+  background: darkgreen;
+}
+
+.warning {
+  background: orangered;
+}
+
+.error {
+  background: darkred;
+}
+
+.good p:last-child, .warning p:last-child, .error p:last-child {
+  margin-bottom: 0;
+}

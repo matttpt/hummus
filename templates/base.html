@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <title>{% block title %}{{ title }}{% endblock %} | Hummus</title>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/hummus.css' %}">
+    {% block extra_css %}{% endblock %}
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1><a href="{% url 'home' %}">Hummus</a></h1>
+        {% block nav %}
+          <nav>
+            <ul>
+              <li><a href="{% url 'forum' %}">Forum</a></li>
+              {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Log out</a></li>
+              {% else %}
+                <li><a href="{% url 'login' %}">Log in</a></li>
+              {% endif %}
+            </ul>
+          </nav>
+        {% endblock %}
+      </header>
+      <main>
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+{% block scripts %}
+{% endblock %}
+  </body>
+</html>

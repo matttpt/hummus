@@ -1,0 +1,56 @@
+/* BUTTONS AND FORMS */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+	justify-items: left;
+}
+
+.form-grid .error {
+	grid-column: 2;
+	font-size: 0.75rem;
+	color: darkred;
+	background: none;
+	padding: 0;
+	margin: 0;
+}
+
+.form-grid label {
+    text-align: right;
+	justify-self: right;
+    margin: 0.5rem 0.5rem 0.5rem 0;
+}
+
+input[type=text], input[type=date], input[type=email],
+input[type=password] {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  box-shadow: none;
+  padding: 0.5rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  color #333;
+  background: none;
+}
+
+textarea {
+  border: 1px solid #ccc;
+  outline: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  color: #333;
+  padding: 0.5rem;
+}
+  
+
+input[type=text]:focus:invalid, input[type=date]:focus:invalid,
+input[type=email]:focus:invalid, input[type=password]:focus:invalid {
+  border-color: red;
+}
+
+input[type=text]:focus:valid, input[type=date]:focus:valid,
+input[type=email]:focus:valid, input[type=password]:focus:valid, {
+  border-color: green;
+}

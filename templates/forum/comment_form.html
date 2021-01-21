@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+<link rel="stylesheet" href="{% static 'css/forum.css' %}">
+{% endblock %}
+
+{% block content %}
+  <h2>{{ title }}</h2>
+  {% if parent_comment %}
+    <p>Here is the comment you are replying to:</p>
+    <div class="comment-preview">
+      {% include 'forum/comment_info.html' with comment=parent_comment toolbar=False %}
+      <div class="comment-content">
+        {{ parent_comment.content_as_markdown|safe }}
+      </div>
+    </div>
+  {% endif %}
+  {% if preview %}
+    <p>Here is a preview of what you have so far:</p>
+    <div class="comment-content comment-preview">
+      {{ preview.content_as_markdown|safe }}
+    </div>
+  {% endif %}
+  <form action="{{ form_action }}" method="post">
+    {% csrf_token %}
+    {% include 'render_form_fields.html' %}
+    <button type="submit" name="action" value="submit">Submit</button>
+    <button type="submit" name="action" value="preview" class="secondary">Preview</button>
+  </form>
+{% endblock %}

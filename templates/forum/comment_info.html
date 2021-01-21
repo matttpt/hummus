@@ -1,0 +1,22 @@
+{% load humanize %}
+<div class="comment-info">
+  {{ comment.user.get_full_name }}
+  <abbr title="{{ comment.time_created }}">{{ comment.time_created|naturaltime }}</abbr>
+  {% if comment.edited %}
+    (edited <abbr title="{{ comment.time_created }}">{{ comment.time_edited|naturaltime }}</abbr>)
+  {% endif %}
+  {% if toolbar|default_if_none:True %}
+    | <a href="{% url 'comment' comment.pk %}">#{{ comment.pk }}</a>
+    {% if comment.parent %}
+      {% if depth > 1 %}
+        | <a href="#comment-{{ comment.parent.pk }}">parent</a>
+      {% else %}
+        | <a href="{% url 'comment' comment.parent.pk %}">parent</a>
+      {% endif %}
+    {% endif %}
+    | <a href="{% url 'reply' comment.pk %}">reply</a>
+    {% if comment.user == request.user %}
+    | <a href="{% url 'edit-comment' comment.pk %}">edit</a>
+    {% endif %}
+  {% endif %}
+</div>

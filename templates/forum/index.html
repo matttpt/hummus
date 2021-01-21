@@ -1,0 +1,35 @@
+{% extends 'forum/base.html' %}
+{% load humanize %}
+
+{% block content %}
+  <div class="forum-toolbar">
+    <div class="forum-toolbar-text">
+      The forum has
+      <strong>{{ post_count }} post{% if post_count != 1 %}s{% endif %}</strong> and
+      <strong>{{ comment_count }} comment{% if comment_count != 1 %}s{% endif %}</strong>.
+    </div>
+    <a class="button new-post-button" href="{% url 'new-post' %}">New post</a>
+  </div>
+  <div class="forum-index">
+    {% for post in latest_posts %}
+      <div class="forum-index-block">
+        <div>
+          <h2><a href="{% url 'post' post.pk %}">{{ post.title }}</a></h2>
+          {% include 'forum/post_info.html' with show_time_edited=False %}
+        </div>
+        <div class="post-stats">
+          <ul>
+            <li>
+              {% with count=post.comment_set.count %}
+                {{ count }} comment{% if count != 1 %}s{% endif %}
+              {% endwith %}
+            </li>
+            <li>
+              Active <abbr title="{{ post.time_active }}">{{ post.time_active|naturaltime }}</abbr>
+            </li>
+          </ul>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}

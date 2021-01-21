@@ -1,0 +1,17 @@
+{% for comment in comment_list %}
+  <div class="comment" id="comment-{{ comment.pk }}">
+	{% include 'forum/comment_info.html' %}
+    <div class="comment-content">
+     {{ comment.content_as_markdown|safe }}
+    </div>
+    {% with comment_list=comment.sorted_comment_set %}
+      {% if depth >= max_depth and comment_list %}
+        <a href="{% url 'comment' comment.pk %}">View with subcomments</a>
+      {% else %}
+        <div class="subcomments">
+          {% include 'forum/comment_list.html' with depth=depth|add:"1" %}
+        </div>
+      {% endif %}
+    {% endwith %}
+  </div>
+{% endfor %}

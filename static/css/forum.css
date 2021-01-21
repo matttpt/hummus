@@ -1,0 +1,77 @@
+.forum-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+
+.forum-toolbar-text {
+  flex-grow: 1;
+  margin-bottom: 0;
+}
+
+.post-info, .comment-info, .post-stats {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.post-info {
+  margin-top: -0.8rem;
+  margin-bottom: 1rem;
+}
+
+.forum-index-block {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.forum-index-block .post-info {
+  margin-bottom: 0;
+}
+
+.forum-index-block h2 {
+  font-size: 1rem;
+}
+
+.post-stats {
+  text-align: right;
+}
+
+.post-stats ul {
+  list-style: none;
+  margin: 0;
+}
+
+.comment-info {
+  margin-bottom: 0.2rem;
+}
+
+.post-preview, .comment-preview {
+  border: 1px dotted #333;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.post-preview :last-child, .comment-preview :last-child {
+  margin-bottom: 0;
+}
+
+.post-content img, .comment-content img {
+  width: auto;
+  max-width: 100%;
+}
+
+.post-content p img, .comment-content p img {
+  /* Needed because Markdown always puts images in a <p> tag, which
+     already has the margin applied to it */
+  margin-bottom: 0;
+}
+
+.subcomments {
+  border-left: 1px dotted #333;
+  padding-left: 1rem;
+}

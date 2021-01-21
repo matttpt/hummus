@@ -1,0 +1,20 @@
+version: "3"
+services:
+  hummus:
+    build: .
+    ports:
+    - "127.0.0.1:8000:8000"
+    environment:
+      DB_NAME: hummus
+      DB_USER: hummus
+      DB_PASSWORD: password
+      DB_HOST: postgres
+      DEBUG: "true"
+      HOST: localhost
+      SECRET_KEY: secret
+  postgres:
+    image: "postgres:latest"
+    environment:
+      POSTGRES_DB: hummus
+      POSTGRES_USER: hummus
+      POSTGRES_PASSWORD: password

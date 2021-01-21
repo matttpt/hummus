@@ -1,0 +1,14 @@
+{% load humanize %}
+<div class="post-info">
+  Posted by {{ post.user.get_full_name }}
+  <abbr title="{{ post.time_created }}">{{ post.time_created|naturaltime }}</abbr>
+  {% if post.edited and show_time_edited|default_if_none:True %}
+    (edited <abbr title="{{ post.time_edited }}">{{ post.time_edited|naturaltime }}</abbr>)
+  {% endif %}
+  {% if toolbar|default_if_none:True %}
+    | <a href="{% url 'post' post.pk %}">#{{ post.pk }}</a>
+    {% if post.user == request.user %}
+      | <a href="{% url 'edit-post' post.pk %}">edit</a>
+    {% endif %}
+  {% endif %}
+</div>

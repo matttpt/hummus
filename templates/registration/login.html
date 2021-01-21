@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
+
+{% block title %}Log in{% endblock %}
+
+{% block content %}
+  <h2>Log in</h2>
+  {% if next %}
+  <p>You must be logged in to view this page.</p>
+  {% endif %}
+  <form action="{% url 'login' %}{% if next %}?next={{ next }}{% endif %}" method="post">
+    {% csrf_token %}
+    {% include 'render_form_fields.html' %}
+    <input type="submit" value="Log in">
+  </form>
+{% endblock %}

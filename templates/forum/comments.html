@@ -1,0 +1,7 @@
+{% extends 'forum/base.html' %}
+
+{% block content %}
+  <div class="comments">
+    {% include 'forum/comment_list.html' with depth=1 %}
+  </div>
+{% endblock %}
