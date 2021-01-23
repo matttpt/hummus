@@ -192,7 +192,7 @@ header h1 a {
     color: inherit;
 }
 
-main p, main ul, main img, main table, main pre, main blockquote,
+main p, main ul, main ol, main img, main table, main pre, main blockquote,
 main .good, main .warning, main .error {
   margin-bottom: 1rem;
 }
@@ -203,6 +203,13 @@ main a {
 
 main ul {
   list-style: outside square;
+}
+
+main ol {
+  list-style: outside decimal;
+}
+
+main ul, main ol {
   margin-left: 2rem;
 }
 
