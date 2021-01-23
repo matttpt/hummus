@@ -8,6 +8,11 @@
 
 {% block content %}
   <h2>{{ title }}</h2>
+  <p>
+    Your comment may be formatted with
+    <a href="https://commonmark.org/help/" target="_blank">Markdown</a>.
+    Use the “preview” button to see how it looks before submitting.
+  </p>
   {% if parent_comment %}
     <p>Here is the comment you are replying to:</p>
     <div class="comment-preview">
