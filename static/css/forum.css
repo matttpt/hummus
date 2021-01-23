@@ -46,6 +46,10 @@
   margin: 0;
 }
 
+.post-stats li {
+  white-space: nowrap;
+}
+
 .comment-info {
   margin-bottom: 0.2rem;
 }
