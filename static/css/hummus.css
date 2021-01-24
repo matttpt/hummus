@@ -23,13 +23,23 @@ nav ul {
   flex-direction: row;
 }
 
-nav li a {
-  padding: 10px;
+nav li a, nav li input[type=submit] {
+  padding: 0 10px;
   text-decoration: none;
   color: #333;
 }
 
-nav li:last-child a {
+nav li input[type=submit] {
+  display: inline;
+  background: none;
+}
+
+nav li input[type=submit]:hover {
+  display: inline;
+  background: none;
+}
+
+nav li:last-child a, nav li:last-child input[type=submit] {
   padding-right: 0;
 }
 
@@ -69,11 +79,11 @@ h3::after {
   content: '.'
 }
 
-a {
+a, nav li input[type=submit] {
   transition: text-shadow 0.5s ease;
 }
 
-a:hover {
+a:hover, nav li input[type=submit]:hover {
   text-shadow: 0 0 0.3rem #bbb;
 }
 
@@ -82,7 +92,7 @@ em, i {
 }
 
 em > em {
-    font-style: normal;
+  font-style: normal;
 }
 
 strong, b {

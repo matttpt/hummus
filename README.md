@@ -3,14 +3,14 @@
 Hummus aims to be a lightweight, no-nonsense social website for small,
 close-knit groups. It is implemented as a
 [Django](https://www.djangoproject.com) site and currently includes the
-following components:
+following features:
 
 - A lightweight forum/discussion board with a compact, threaded design,
   designed for sharing news, stories, and ideas
+- Optional integration with identity providers through OpenID Connect
 
-The following components are planned:
+The following features are planned:
 
-- Integration with identity providers through OpenID Connect
 - Customizable user profiles
 - Photo upload/photo sharing
 
@@ -68,6 +68,21 @@ Hummus is configured through the following environment variables:
   - `DB_HOST`: Hostname of the PostgreSQL server. Defaults to
     `localhost`.
   - `DB_PORT`: Listening port of PostgreSQL server. Defaults to `5432`.
+- **To use OpenID Connect for authentication**, set `USE_OIDC` to `true`
+  (the default is `false`) and configure the following variables as
+  necessary. These are passed directly to the `mozilla-django-oidc`
+  library; see its
+  [documentation](https://mozilla-django-oidc.readthedocs.io/en/stable/)
+  for descriptions of these settings.
+  - `OIDC_OP_AUTHORIZATION_ENDPOINT`
+  - `OIDC_OP_TOKEN_ENDPOINT`
+  - `OIDC_OP_USER_ENDPOINT`
+  - `OIDC_RP_CLIENT_ID`
+  - `OIDC_RP_CLIENT_SECRET`
+  - `OIDC_RP_SIGN_ALGO`
+  - If the signing algorithm is `RS256`, one of:
+    - `OIDC_OP_JWKS_ENDPOINT`
+    - `OIDC_RP_IDP_SIGN_KEY`
 
 ## Customization
 

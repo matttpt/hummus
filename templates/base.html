@@ -17,11 +17,24 @@
           <nav>
             <ul>
               <li><a href="{% url 'forum' %}">Forum</a></li>
-              {% if user.is_authenticated %}
-                <li><a href="{% url 'logout' %}">Log out</a></li>
-              {% else %}
-                <li><a href="{% url 'login' %}">Log in</a></li>
-              {% endif %}
+              <li>
+                {% if user.is_authenticated %}
+                  {% if settings.USE_OIDC %}
+                    <form action="{% url "oidc_logout" %}" method="post">
+                      {% csrf_token %}
+                      <input type="submit" value="Log out">
+                    </form>
+                  {% else %}
+                    <a href="{% url "logout" %}">Log out</a>
+                  {% endif %}
+                {% else %}
+                  {% if settings.USE_OIDC %}
+                    <a href="{% url "oidc_authentication_init" %}">Log in</a>
+                  {% else %}
+                    <a href="{% url "login" %}">Log in</a>
+                  {% endif %}
+                {% endif %}
+              </li>
             </ul>
           </nav>
         {% endblock %}

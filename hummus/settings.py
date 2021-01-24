@@ -188,6 +188,30 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/"
 
+USE_OIDC = get_bool_variable("USE_OIDC", False)
+if USE_OIDC:
+    LOGOUT_REDIRECT_URL = "/logged-out"  # See urls.py
+    INSTALLED_APPS.insert(
+        INSTALLED_APPS.index("django.contrib.auth") + 1, "mozilla_django_oidc"
+    )
+    AUTHENTICATION_BACKENDS = [
+        "hummus.oidc.HummusOIDCAuthenticationBackend",
+        "django.contrib.auth.backends.ModelBackend",
+    ]
+    OIDC_RP_CLIENT_ID = os.environ["OIDC_RP_CLIENT_ID"]
+    OIDC_RP_CLIENT_SECRET = os.environ["OIDC_RP_CLIENT_SECRET"]
+    OIDC_OP_AUTHORIZATION_ENDPOINT = os.environ["OIDC_OP_AUTHORIZATION_ENDPOINT"]
+    OIDC_OP_TOKEN_ENDPOINT = os.environ["OIDC_OP_TOKEN_ENDPOINT"]
+    OIDC_OP_USER_ENDPOINT = os.environ["OIDC_OP_USER_ENDPOINT"]
+    OIDC_RP_SIGN_ALGO = os.environ["OIDC_RP_SIGN_ALGO"]
+    if OIDC_RP_SIGN_ALGO == "RS256":
+        jwks_endpoint = os.environ.get("OIDC_OP_JWKS_ENDPOINT")
+        if jwks_endpoint:
+            OIDC_OP_JWKS_ENDPOINT = jwks_endpoint
+        rp_idc_sign_key = os.environ.get("OIDC_RP_IDP_SIGN_KEY")
+        if rp_idc_sign_key:
+            OIDC_RP_IDP_SIGN_KEY = rp_idc_sign_key
+
 
 ########################################################################
 # Deployment security                                                  #

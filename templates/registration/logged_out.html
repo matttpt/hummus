@@ -9,5 +9,11 @@
 
 {% block content %}
   <h2>You’ve been logged out.</h2>
-  <p><a href="{% url 'login' %}">Log back in.</a></p>
+  <p>
+    {% if settings.USE_OIDC %}
+      <a href="{% url 'oidc_authentication_init' %}">Log back in.</a>
+    {% else %}
+      <a href="{% url 'login' %}">Log back in.</a>
+    {% endif %}
+  </p>
 {% endblock %}
