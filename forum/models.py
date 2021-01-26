@@ -1,13 +1,7 @@
-import bleach
-import markdown
 from django.contrib.auth.models import User
 from django.db import models
 
-
-# TODO: consider what else might be allowed (look at the Markdown spec)
-BLEACH_ALLOWED_TAGS = bleach.sanitizer.ALLOWED_TAGS + ["p", "img"]
-BLEACH_ALLOWED_ATTRIBUTES = dict(bleach.sanitizer.ALLOWED_ATTRIBUTES)
-BLEACH_ALLOWED_ATTRIBUTES["img"] = ["src", "alt"]
+from hummus.markdown import process_markdown
 
 
 class Post(models.Model):
@@ -23,12 +17,7 @@ class Post(models.Model):
         return self.comment_set.filter(parent=None).order_by("time_created")
 
     def content_as_markdown(self):
-        return bleach.clean(
-            markdown.markdown(self.content),
-            tags=BLEACH_ALLOWED_TAGS,
-            attributes=BLEACH_ALLOWED_ATTRIBUTES,
-            strip=True,
-        )
+        return process_markdown(self.content)
 
     def __str__(self):
         return 'Post {} ("{}")'.format(self.pk, self.title)
@@ -44,12 +33,7 @@ class Comment(models.Model):
     time_edited = models.DateTimeField(auto_now_add=True)
 
     def content_as_markdown(self):
-        return bleach.clean(
-            markdown.markdown(self.content),
-            tags=BLEACH_ALLOWED_TAGS,
-            attributes=BLEACH_ALLOWED_ATTRIBUTES,
-            strip=True,
-        )
+        return process_markdown(self.content)
 
     def sorted_comment_set(self):
         return self.comment_set.order_by("time_created")
