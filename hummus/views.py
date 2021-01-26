@@ -1,4 +1,5 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render
+from django.views.generic.base import RedirectView
 
 
 def default_home(request):
@@ -7,8 +8,10 @@ def default_home(request):
 
 # This is installed to /login, so that the @login_required decorator
 # (which redirects to /login) continues to work when OIDC is enabled
-def redirect_to_oidc_login(request):
-    return redirect("oidc_authentication_init", permanent=True)
+class RedirectToOIDCLoginView(RedirectView):
+    pattern_name = "oidc_authentication_init"
+    permanent = True
+    query_string = True  # So that the "next" parameter is preserved
 
 
 def logged_out_with_oidc(request):

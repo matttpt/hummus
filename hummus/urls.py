@@ -17,7 +17,7 @@ else:
 # enabled or not
 if settings.USE_OIDC:
     auth_urls = [
-        path("login", views.redirect_to_oidc_login, name="login"),
+        path("login", views.RedirectToOIDCLoginView.as_view(), name="login"),
         path("logged-out", views.logged_out_with_oidc),
         path("oidc/", include("mozilla_django_oidc.urls")),
     ]
