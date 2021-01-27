@@ -1,9 +1,10 @@
-version: "3"
+version: "3.4"
 services:
-  hummus:
-    build: .
-    ports:
-    - "127.0.0.1:8000:8000"
+  app:
+    build:
+      context: .
+      dockerfile: deploy/dev/Dockerfile
+      target: app
     environment:
       DB_NAME: hummus
       DB_USER: hummus
@@ -12,9 +13,22 @@ services:
       DEBUG: "true"
       HOST: localhost
       SECRET_KEY: secret
+    volumes:
+    - "media:/hummus/media"
+  nginx:
+    build:
+      context: .
+      dockerfile: deploy/dev/Dockerfile
+      target: nginx
+    ports:
+    - "127.0.0.1:8000:80"
+    volumes:
+    - "media:/usr/share/nginx/html/media-redirect"
   postgres:
     image: "postgres:latest"
     environment:
       POSTGRES_DB: hummus
       POSTGRES_USER: hummus
       POSTGRES_PASSWORD: password
+volumes:
+  media:

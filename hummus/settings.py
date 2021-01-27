@@ -82,7 +82,6 @@ if HOME_APP:
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -179,6 +178,20 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+
+########################################################################
+# Uploaded media                                                       #
+########################################################################
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.environ["MEDIA_ROOT"]
+if DEBUG:
+    SERVE_MEDIA = get_bool_variable("SERVE_MEDIA", True)
+else:
+    SERVE_MEDIA = False
+if not SERVE_MEDIA:
+    MEDIA_X_ACCEL_REDIRECT_URL = os.environ.get("MEDIA_X_ACCEL_REDIRECT_URL")
 
 
 ########################################################################

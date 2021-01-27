@@ -1,6 +1,9 @@
+import re
+
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import include, path
+from django.urls import include, path, re_path
 
 from . import settings, views
 
@@ -28,9 +31,26 @@ else:
     ]
 
 
+# Serve our own uploaded media if we are asked to do so (in debug mode
+# only). Otherwise, we assume we are behind a proxy, and we send the
+# X-Accel-Redirect header back to it if the proper URL is provided.
+if settings.SERVE_MEDIA:
+    media_urls = static(settings.MEDIA_URL, view=views.serve_media)
+elif settings.MEDIA_X_ACCEL_REDIRECT_URL:
+    media_urls = [
+        re_path(
+            r"^{}(?P<path>.*)$".format(re.escape(settings.MEDIA_URL.lstrip("/"))),
+            views.x_accel_redirect_media,
+        )
+    ]
+else:
+    media_urls = []
+
+
 urlpatterns = (
     [home_urls]
     + auth_urls
+    + media_urls
     + [
         path("forum/", include("forum.urls")),
         path("admin/", admin.site.urls),

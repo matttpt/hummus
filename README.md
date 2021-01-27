@@ -20,26 +20,10 @@ In production scenarios, Hummus is intended to be deployed in a
 container. For development environments, see the “Development” section
 below.
 
-To build a Hummus container image, first customize as desired (see
-“Customization” below), adding the `HOME_APP` and `HOME_URLS`
-environment variables to the `Dockerfile` if a custom home page is
-installed. Then build using the `Dockerfile`.
+**Note: A `Dockerfile` for production use is not yet available, but will
+be added to the repository shortly.**
 
-Run the container with the environment variables described below
-set appropriately.
-
-Before you can use Hummus, the database must be initialized.
-Furthermore, you should create a Django super-user. To do these things,
-run the Django `manage.py` script inside the container:
-```bash
-./manage.py migrate          # to initialize the database
-./manage.py createsuperuser  # to create a super-user; note, requires
-                             # interactivity!
-```
-
-The Django administration interface is exposed at `/admin/`.
-
-## Environment variables
+## Configuration
 
 Hummus is configured through the following environment variables:
 
@@ -83,6 +67,31 @@ Hummus is configured through the following environment variables:
   - If the signing algorithm is `RS256`, one of:
     - `OIDC_OP_JWKS_ENDPOINT`
     - `OIDC_RP_IDP_SIGN_KEY`
+
+The following environment variable is set in the provided `Dockerfile`s,
+but must be set manually when using the built-in Django development
+server:
+
+- `MEDIA_ROOT`: Absolute path to a filesystem directory in which to
+  store uploaded files (passed directly to Django; see the
+  [documentation](https://docs.djangoproject.com/en/3.1/ref/settings/#std:setting-MEDIA_ROOT).)
+
+The following environment variable is optional when using the built-in
+Django development server:
+
+- `SERVE_MEDIA`: Whether to serve static files from Django itself, as
+  opposed to using an external server. This
+  defaults to `true` when `DEBUG` is `true`, and is *always* treated as
+  `false` when `DEBUG` is `false`.
+
+The following environment variable may be used when `SERVE_MEDIA` is
+`false`:
+
+- `MEDIA_X_ACCEL_REDIRECT_URL`: When set, use of the `X-Accel-Redirect`
+  HTTP header is enabled, instructing the reverse proxy in front of the
+  application to serve the specified media file after the application
+  has checked that the user is authenticated. The value specifies the
+  base URL for the media on the proxy.
 
 ## Customization
 
@@ -184,6 +193,7 @@ pipenv install  # to install dependencies from the Pipfile, if this is
 export DEBUG=true
 export SECRET_KEY=topsecretkey
 export USE_SQLITE=true
+export MEDIA_ROOT=$(pwd)/media
 
 # Now run any database migrations or create a super-user, when needed:
 ./manage.py migrate
@@ -194,21 +204,22 @@ export USE_SQLITE=true
 ```
 
 You can also use a PostgreSQL server instead, by configuring the right
-environment variables, as described under “Usage”.
+environment variables, as described under “Configuration”.
 
 ### `docker-compose` method
 
-This is the easiest way to test with PostgreSQL. Note that the
-`docker-compose.yml` creates a development environment (`DEBUG` is
-`true`) and is therefore *not suitable for production*.
+This is the easiest way to test in an environment more like a production
+environment, with an nginx reverse proxy and PostgreSQL. Note that the
+`docker-compose.yml` does enable debugging (`DEBUG` is `true`) and it is
+therefore *not suitable for production*.
 
 ```bash
 docker-compose build
 docker-compose up -d
 
 # Now run any database migrations or create a super-user, when needed:
-docker-compose run --rm hummus ./manage.py migrate
-docker-compose run --rm hummus ./manage.py createsuperuser
+docker-compose run --rm app ./manage.py migrate
+docker-compose run --rm app ./manage.py createsuperuser
 
 # Hummus is now available at 127.0.0.1:8000
 ```
