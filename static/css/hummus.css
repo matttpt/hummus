@@ -185,6 +185,7 @@ a.button:hover {
 
 button.secondary, a.button.secondary {
   color: inherit;
+  padding: 9px; /* plus 1px for border */
   background: inherit;
   border: 1px solid #333;
 }
