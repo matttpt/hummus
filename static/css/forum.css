@@ -1,14 +1,22 @@
 .forum-toolbar {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 1rem;
+  gap: 1rem;
 }
 
-.forum-toolbar-text {
-  flex-grow: 1;
-  margin-bottom: 0;
+.photos-toolbar-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.forum-toolbar-buttons .button {
+  margin: 0;
 }
 
 .post-info, .comment-info, .post-stats {
@@ -26,6 +34,7 @@
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
+  gap: 0.5rem 4rem;
   margin-bottom: 1rem;
 }
 
@@ -78,4 +87,15 @@
 .subcomments {
   border-left: 1px dotted #333;
   padding-left: 1rem;
+}
+
+@media (max-width: 640px) {
+  .forum-index-block {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .post-stats {
+    text-align: left;
+  }
 }

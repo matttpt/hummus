@@ -3,12 +3,14 @@
 
 {% block content %}
   <div class="forum-toolbar">
-    <div class="forum-toolbar-text">
+    <div>
       The forum has
       <strong>{{ post_count }} post{% if post_count != 1 %}s{% endif %}</strong> and
       <strong>{{ comment_count }} comment{% if comment_count != 1 %}s{% endif %}</strong>.
     </div>
-    <a class="button new-post-button" href="{% url 'new-post' %}">New post</a>
+    <div class="forum-toolbar-buttons">
+      <a class="button new-post-button" href="{% url "new-post" %}">New post</a>
+    </div>
   </div>
   <div class="forum-index">
     {% for post in latest_posts %}
