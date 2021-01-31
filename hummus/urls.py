@@ -53,6 +53,7 @@ urlpatterns = (
     + media_urls
     + [
         path("forum/", include("forum.urls")),
+        path("photos/", include("photos.urls")),
         path("admin/", admin.site.urls),
     ]
 )

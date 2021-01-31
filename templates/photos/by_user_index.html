@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+
+{% block title %}Photos by user{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static "css/photos.css" %}">
+{% endblock %}
+
+{% block content %}
+  <h2>Photos by user</h2>
+  <div class="user-grid">
+    {% for user, latest_photo, photo_count in users_with_photo_data %}
+      <a href="{% url "photos-by-user" user.pk %}" class="user-box">
+        <div class="user-info">
+          <span>{{ user.get_full_name }}</span>
+          <span class="user-photo-count">
+            {{ photo_count }} photo{% if photo_count != 1 %}s{% endif %}
+          </span>
+        </div>
+        {% thumbnail latest_photo.image "240x240" crop="center" as thumb %}
+          <img class="user-image" src="{{ thumb.url }}" alt="{{ user.get_full_name }}’s latest photo">
+        {% empty %}
+          <div class="user-image"></div>
+        {% endthumbnail %}
+      </a>
+    {% endfor %}
+  </div>
+{% endblock %}

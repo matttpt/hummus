@@ -1,0 +1,20 @@
+{% load thumbnail %}
+
+<div class="gallery">
+  {% for row in gallery %}
+    <div class="gallery-row">
+      {% for photo, thumb_size in row.photos_with_sizes %}
+        <div id="photo-{{ photo.pk }}">
+          <a href="{% url "photo" photo.pk %}">
+            {% thumbnail photo.image thumb_size as thumb %}
+              <img src="{{ thumb.url }}" loading="lazy">
+            {% endthumbnail %}
+          </a>
+          {% if photo.title %}
+            <span class="photo-info">{{ photo.title }}</span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>

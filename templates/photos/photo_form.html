@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static "css/form.css" %}">
+{% endblock %}
+
+{% block content %}
+  <h2>{{ title }}</h2>
+  <p>
+    A title and description of the image may optionally be provided. The
+    description may be formatted with
+    <a href="https://commonmark.org/help/" target="_blank">Markdown</a>.
+  </p>
+  <form action="{{ form_action }}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include "render_form_fields.html" %}
+    <button type="submit" name="action" value="submit">Submit</button>
+  </form>
+{% endblock %}

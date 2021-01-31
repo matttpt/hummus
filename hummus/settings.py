@@ -68,6 +68,7 @@ if HOME_APP:
 
 INSTALLED_APPS = [
     "forum.apps.ForumConfig",
+    "photos.apps.PhotosConfig",
     "django.contrib.humanize",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -75,6 +76,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "sorl.thumbnail",
 ]
 if HOME_APP:
     INSTALLED_APPS.insert(0, HOME_APP)

@@ -18,6 +18,7 @@
           <nav>
             <ul>
               <li><a href="{% url 'forum' %}">Forum</a></li>
+              <li><a href="{% url "photos" %}">Photos</a></li>
               <li>
                 {% if user.is_authenticated %}
                   {% if settings.USE_OIDC %}

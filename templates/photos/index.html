@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Photos{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static "css/photos.css" %}">
+  <style>
+{% include "photos/gallery.css" %}
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="photos-toolbar">
+    <div class="photos-toolbar-text">
+      There {% if photo_count != 1 %}are{% else %}is{% endif %}
+      <strong>{{ photo_count }}</strong>
+      photo{% if photo_count != 1 %}s{% endif %} in the database.
+    </div>
+    <div class="photos-toolbar-buttons">
+      <a class="button secondary" href="{% url "photos-by-user-index" %}">By user</a>
+      <a class="button" href="{% url "upload-photo" %}">Upload</a>
+    </div>
+  </div>
+  <h2>Most recent uploads</h2>
+  {% include "photos/gallery.html" %}
+{% endblock %}

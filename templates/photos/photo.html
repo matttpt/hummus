@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block title %}{% if photo.title %}{{ photo.title }}{% else %}Untitled photo{% endif %}{% endblock %}
+
+{% block content %}
+  <h2>
+    {% if photo.title %}
+      {{ photo.title }}
+    {% else %}
+      Untitled photo
+    {% endif %}
+  </h2>
+  <a href="{{ photo.image.url }}">
+    {% thumbnail photo.image "720" as thumb %}
+      <img src="{{ thumb.url }}">
+    {% endthumbnail %}
+  </a>
+  {% if photo.description %}
+    {{ photo.description_as_markdown|safe }}
+  {% endif %}
+  <h2>Data</h2>
+  <table>
+    <tr>
+      <td>Date/time:</td>
+      {% if photo.timestamp %}
+        <td>{{ photo.timestamp }}</td>
+      {% else %}
+        <td>None recorded</td>
+      {% endif %}
+    </tr>
+    <tr>
+      <td>Dimensions:</td>
+      <td>{{ photo.width }} by {{ photo.height }} pixels</td>
+    </tr>
+    <tr>
+      <td>Size:</td>
+	  <td>{{ size_str }}</td>
+    </tr>
+    <tr>
+      <td>Uploader:</td>
+      <td>{{ photo.user.get_full_name }}</td>
+    </tr>
+  </table>
+  {% if request.user == photo.user %}
+	<h2>Actions</h2>
+	<a class="button" href="{% url "edit-photo" photo.pk %}">Edit</a>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,5 @@
+{% for row in gallery %}{% for photo in row.photos %}
+#photo-{{ photo.pk }} {
+  flex: {{ photo.aspect_ratio }} 0 {{ photo.aspect_ratio }}px;
+}
+{% endfor %}{% endfor %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ user.get_full_name }}’s photos{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static "css/photos.css" %}">
+  <style>
+{% include "photos/gallery.css" %}
+  </style>
+{% endblock %}
+
+{% block content %}
+  <h2>{{ user.get_full_name }}’s photos</h2>
+  {% include "photos/gallery.html" %}
+{% endblock %}
