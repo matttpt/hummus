@@ -36,6 +36,7 @@ nav li a, nav li input[type=submit] {
 nav li input[type=submit] {
   display: inline;
   background: none;
+  padding: 0;
 }
 
 nav li input[type=submit]:hover {
