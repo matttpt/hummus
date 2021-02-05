@@ -21,6 +21,7 @@ COPY Pipfile Pipfile.lock /hummus/app/
 WORKDIR /hummus/app/
 RUN pipenv install --system --deploy
 COPY . /hummus/app/
+RUN ./manage.py collectstatic --no-input
 
 # Configure media volume
 RUN mkdir /hummus/media/ && chown www-data:www-data /hummus/media/
@@ -35,10 +36,7 @@ CMD exec gunicorn hummus.wsgi -u www-data -g www-data \
 # Build the nginx image to serve static files and media                #
 ########################################################################
 
-FROM app as staticfiles
-RUN ./manage.py collectstatic --no-input
-
 FROM nginx:latest as nginx
-COPY --from=staticfiles /hummus/app/staticfiles /usr/share/nginx/html/static
+COPY --from=app /hummus/app/staticfiles /usr/share/nginx/html/static
 COPY deploy/dev/nginx.conf /etc/nginx/conf.d/default.conf
 VOLUME /usr/share/nginx/html/media-redirect
