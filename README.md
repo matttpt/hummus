@@ -7,12 +7,13 @@ following features:
 
 - A lightweight forum/discussion board with a compact, threaded design,
   designed for sharing news, stories, and ideas
+- Basic photo upload/photo sharing
 - Optional integration with identity providers through OpenID Connect
 
-The following features are planned:
+The following features may be added in the future:
 
 - Customizable user profiles
-- Photo upload/photo sharing
+- Tools for photo categorization
 
 ## Usage
 
